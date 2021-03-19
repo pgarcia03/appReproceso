@@ -1,0 +1,51 @@
+
+<p-toast position="top-right" [baseZIndex]="3000" ></p-toast>
+
+<div class="p-fluid">
+  <div class="p-field">
+      <label for="firstname1">Linea</label>
+      <p-dropdown  [options]="lineas" [(ngModel)]="selectedCode"  optionLabel="linea" optionValue="id" (onChange)="selectlinea()" placeholder="Seleccion..."></p-dropdown>
+   </div>
+</div>
+
+<div class="p-field p-fluid">
+  <label for="fieldId">Observacion</label>
+  <textarea pInputTextarea [(ngModel)]="observacion"></textarea>
+ 
+</div>
+
+<p>Lista de Unidades en Inventario</p>
+
+<table class="table table-dark table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Talla</th>
+        <th scope="col">Unidades Inventario</th>
+        <th scope="col">Unidades a Enviar</th>
+      </tr>
+    </thead>
+    <tbody  >
+      <tr *ngFor="let item of reparaciones; let i=index;">
+        <th scope="row">{{ i+1 }}</th>
+        <td>{{ item.talla }}</td>
+        <td>{{ item.totalPorTalla }}</td>
+        <td><input type="number" class="form-control" [(ngModel)]="item.cantidadDevolucion" (keyup)="validar(item,i)" (focus)="limpiar0(item)"  /></td>
+        <td><button (click)="Enviar(item)" class="btn btn-warning m-lg-1" > Enviar </button>  </td>
+      </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    padding: 0;
+    margin: 0;
+}
+
+section{
+  min-height: 800px;
+}
+
+#afFooter{
+ text-align: center;
+ color: aliceblue;
+ background: rgb(61, 60, 59);
+ height: 50px;
+ padding: 10px;
+}

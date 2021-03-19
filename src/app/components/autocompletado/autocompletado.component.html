@@ -1,0 +1,12 @@
+
+
+        <label for="fieldId">Ingrese Numero de PO</label>
+        <div class="input-group">
+            <p-autoComplete id="lblCorte" [(ngModel)]="text" [minLength]="3" [suggestions]="results" field="corte" (completeMethod)="search($event)" (onSelect)="corteSeleccionado($event)"></p-autoComplete>
+                
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" (click)="limpiarData()" type="button">Limpiar</button>
+            </div>
+          </div>
+          
+      
