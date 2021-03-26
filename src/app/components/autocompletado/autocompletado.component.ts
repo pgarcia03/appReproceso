@@ -10,6 +10,7 @@ import { PorderService } from 'src/app/services/porder.service';
 })
 export class AutocompletadoComponent implements OnInit {
 
+  
   results:any=[];
 
   text: string='';
@@ -19,13 +20,10 @@ export class AutocompletadoComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  //Metodo de autocompletado
   search(event:any) {
-   
-   // console.log();
-
     this.po.get(event.query).subscribe(data => {
         this.results = data;
-       // console.log(data);
     });
   }
   
@@ -42,12 +40,12 @@ export class AutocompletadoComponent implements OnInit {
     } 
 
     this.text='';
-   // console.log("focus");
-    
+
   }
 
   corteSeleccionado(event:any) {   
     
+    //asignacion datos de po de forma global
     this.seleccion.porder={
       objectId:event.idCorte,
       corte:event.corte,
@@ -56,9 +54,10 @@ export class AutocompletadoComponent implements OnInit {
       washed:event.washed
     } 
 
+    //asignacion de id orden al servicio global
     this.seleccion.idordenParam(event.idCorte);
   
-    console.log("Select");
+   // console.log("Select");
   }
 
 }

@@ -54,10 +54,16 @@ export class ListadoretornoComponent implements OnInit {
   retornoReparacion(item:any){
 
     if (item.objectId!=null && item.objectId!='' && item.objectId<1)
-       {
+      {
         this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe volver a cargar el corte'});
         return;
-       }
+      }
+
+    if(item.cantidadDevolucion<1 || item.cantidadDevolucion=='' )
+      {
+        this.messageService.add({severity:'error', summary:'Service Message', detail:'La cantidad ingresada debe ser mayor a 0'});
+        return;
+      }
 
     let data = {
       objectId:item.objectId,
@@ -80,9 +86,14 @@ export class ListadoretornoComponent implements OnInit {
 
   }
  
-
   retornoReproceso(item:any){
  
+    if(item.cantidadDevolucion<1 || item.cantidadDevolucion=='' )
+    {
+        this.messageService.add({severity:'error', summary:'Service Message', detail:'La cantidad ingresada debe ser mayor a 0'});
+        return;
+    }
+    
     let data = {
       objectId:item.objectId,
       cantidadDevolucion:item.cantidadDevolucion,

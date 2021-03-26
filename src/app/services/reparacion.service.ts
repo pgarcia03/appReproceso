@@ -10,10 +10,8 @@ export class ReparacionService {
 
   constructor(private http:HttpClient, private urlBase:ConexionService) {   }
 
-  
-
   get(id:number):Observable<any>{
-    return this.http.get(`${this.urlBase.mainUrl}EnviosReparacion/?idorden=${id}`);
+    return this.http.get(`${this.urlBase.mainUrl}/EnviosReparacion/?idorden=${id}`);
   }
 
   getRetorno(id:number):Observable<any>{ 
@@ -52,4 +50,5 @@ export class ReparacionService {
     return this.http.delete(`${this.urlBase.mainUrl}/EnviosReparacion/${id}&${corte}&${inspector}`);
   }
   */
+ 
 }

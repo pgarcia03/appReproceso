@@ -39,27 +39,32 @@ export class ListadoComponent implements OnInit {
         {   
             this.validarWash=this.evento.porder.washed;
 
-            switch (this.validarWash) {
-                case true:
-                    this.reproceso.get(val).subscribe(data => {
-                       this.reparaciones = data;
-                    });                
-                  break;
-                case false:
-                    this.reparacion.get(val).subscribe(data => {
-                        this.reparaciones = data;
-                    });
-                  break;
-                default:
-                  console.log('Ha Ocurrido un error'); 
-                break;
-             }         
+            this.cargagrid(this.validarWash,val);
         }
         else{
           this.reparaciones=[];
         }
     });
 
+  }
+
+  cargagrid(bandera:boolean,val:number)
+  {
+    switch (bandera) {
+      case true:
+          this.reproceso.get(val).subscribe(data => {
+             this.reparaciones = data;
+          });                
+        break;
+      case false:
+          this.reparacion.get(val).subscribe(data => {
+              this.reparaciones = data;
+          });
+        break;
+      default:
+        console.log('Ha Ocurrido un error'); 
+      break;
+   }   
   }
 
   cargarLinea()
@@ -69,8 +74,15 @@ export class ListadoComponent implements OnInit {
     });
   }
 
-  Enviar(item:any){
+  async Enviar(item:any){
     
+    /*** Validaciones de cliente ****/
+    if(item.cantidadDevolucion<1 || item.cantidadDevolucion=='' )
+    {
+        this.messageService.add({severity:'error', summary:'Service Message', detail:'La cantidad ingresada debe ser mayor a 0'});
+        return;
+    }
+
     if (!this.evento.porder.objectId){
         this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe volver a cargar el corte'});
         return;
@@ -79,28 +91,24 @@ export class ListadoComponent implements OnInit {
     if (this.evento.tipoTransaccion===''){
       this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe Seleccionar donde enviara la unidades'});
       return;
-  }
-    console.log(this.validarWash);
+    }
 
     this.validarWash=this.evento.tipoTransaccion==="Reproceso"?true:false;
-    
-    console.log(this.evento.tipoTransaccion);
-    console.log(this.selectedCode);
-    console.log(this.evento.id);
 
-
-    if (this.validarWash===true && this.evento.porder.washed==false)
+  /*  if (this.validarWash===true && this.evento.porder.washed==false)
     {
       this.messageService.add({severity:'error', summary:'Service Message', detail:'No puede enviar a Reproceso un corte no lavado'});
       return;
     } 
-
+*/
     if (this.validarWash===false && this.selectedCode<1)
-        {
-          this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe Seleccionar linea'});
-          return;
-        } 
-       
+    {
+        this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe Seleccionar linea'});
+        return;
+    } 
+    
+    /*** Fin de Validaciones de cliente ****/
+
     let data = {
       idOrder:this.evento.porder.objectId,
       talla:item.talla,
@@ -111,67 +119,46 @@ export class ListadoComponent implements OnInit {
       idLinea:0
     }
 
+    //
+    var resp:string='';
     switch (this.validarWash) {
-      case true:   // ira al area de lavado Intex
-                
+      case true:   // ira al area de lavado Intex                
+          
+        //  await this.reproceso.create(data).subscribe(response => { console.log(response); resp=response },error=>{console.log(error); resp=error});          
           this.reproceso.create(data).subscribe(response => {
             if (response==="Ok"){
               this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'});
           
-             switch (this.evento.porder.washed) {
-                 case true:
-                     this.reproceso.get(this.evento.porder.objectId).subscribe(data => {
-                        this.reparaciones = data;
-                     });                
-                   break;
-                 case false:
-                     this.reparacion.get(this.evento.porder.objectId).subscribe(data => {
-                         this.reparaciones = data;
-                     });
-                   break;
-                 default:
-                   console.log('Ha Ocurrido un error'); 
-                 break;
-              }    
-
+              this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);
+        
             }
             else
               this.messageService.add({severity:'error', summary:'Service Message', detail:'Ha ocurrido un Error'});
           },error =>{ console.log(error) });
+
         break;
       case false:  // ira a plantas de Confeccion
           data.idLinea=this.evento.id;
+
+          //await this.reparacion.create(data).subscribe(response => { console.log(response); resp=response },error=>{console.log(error); resp=error});         
           this.reparacion.create(data).subscribe(response => {             
               if (response==="Ok"){ 
                 this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'});
-           
-                switch (this.evento.porder.washed) {
-                  case true:
-                      this.reproceso.get(this.evento.porder.objectId).subscribe(data => {
-                         this.reparaciones = data;
-                      });                
-                    break;
-                  case false:
-                      this.reparacion.get(this.evento.porder.objectId).subscribe(data => {
-                          this.reparaciones = data;
-                      });
-                    break;
-                  default:
-                    console.log('Ha Ocurrido un error'); 
-                  break;
-               }    
- 
-
+                 
+                this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);
+               
             }
               else
               this.messageService.add({severity:'error', summary:'Service Message', detail:'Ha ocurrido un Error'});
           });
+
         break;
       default:
         console.log('Ha Ocurrido un error'); 
       break;
-   }    
-  
+   }  
+   
+
   }
 
   validar(item:any,i:any){

@@ -1,0 +1,8 @@
+<div class="container" *ngIf="currentUser; else loggedOut">   
+       User: <strong>{{ currentUser }}</strong> 
+       <button class="btn btn-outline-light ml-1" type="button"> Cerrar Sesion </button>        
+</div>
+  
+<ng-template #loggedOut>
+    Please login.
+</ng-template>

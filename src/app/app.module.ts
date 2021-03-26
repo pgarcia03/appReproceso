@@ -27,6 +27,10 @@ import { ListadoretornoComponent } from './components/listadoretorno/listadoreto
 import { TransaccionComponent } from './components/transaccion/transaccion.component';
 import { ListaretornoreparacionComponent } from './components/listaretornoreparacion/listaretornoreparacion.component';
 import { ListaretornoreprocesoComponent } from './components/listaretornoreproceso/listaretornoreproceso.component';
+import { LoginComponent } from './components/login/login.component';
+
+import { authInterceptorProviders } from './helper/auth.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import { ListaretornoreprocesoComponent } from './components/listaretornoreproce
     ListadoretornoComponent,
     TransaccionComponent,
     ListaretornoreparacionComponent,
-    ListaretornoreprocesoComponent
+    ListaretornoreprocesoComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,7 @@ import { ListaretornoreprocesoComponent } from './components/listaretornoreproce
     MessageModule,
     MessagesModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

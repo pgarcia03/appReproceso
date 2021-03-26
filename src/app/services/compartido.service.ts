@@ -20,6 +20,7 @@ export class CompartidoService {
 
   tipoTransaccion:string='';
   tipo:string='';
+  
   //usado para persibir un nuevo id orden, este sera enviado como parametro para extarer lista de unidades en componente listado
   private idorden = new Subject<number>();
   public $idorden = this.idorden.asObservable();
