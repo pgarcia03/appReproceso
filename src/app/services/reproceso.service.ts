@@ -26,15 +26,15 @@ export class ReprocesoService  {
   }
 
   getRetorno(id:number):Observable<any>{ 
-    return this.http.get(`${this.urlBase.mainUrl}/EnviosReproceso/?idorden=${id}&type=retorno`);
+    return this.http.get(`${this.urlBase.mainUrl}EnviosReproceso/?idorden=${id}&type=retorno`);
   }
 
   create(data:any):Observable<any>{
-    return this.http.post(`${this.urlBase.mainUrl}/EnviosReproceso/`,data);
+    return this.http.post(`${this.urlBase.mainUrl}EnviosReproceso/`,data);
   }
 
   createRetorno(data:any):Observable<any>{
-    return this.http.post(`${this.urlBase.mainUrl}/EnviosReproceso/?id=${data.objectId}`,data);
+    return this.http.post(`${this.urlBase.mainUrl}EnviosReproceso/?id=${data.objectId}`,data);
   }
 
 

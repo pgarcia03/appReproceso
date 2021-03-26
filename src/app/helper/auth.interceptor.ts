@@ -2,10 +2,10 @@ import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
-import { StorageService } from '../services/storage.service'; //'./ ./_services/storage.service';
+import { StorageService } from '../services/storage.service'; 
 import { Observable } from 'rxjs';
 
-const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end
+const TOKEN_HEADER_KEY = 'Authorization';// for Spring Boot back-end
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

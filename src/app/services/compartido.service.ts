@@ -7,7 +7,6 @@ import { Iporder } from '../interfaces/iporder';
 })
 export class CompartidoService {
 
-
   porder:Iporder={
     objectId:0,
     corte:'',

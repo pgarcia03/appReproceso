@@ -11,19 +11,19 @@ export class ReparacionService {
   constructor(private http:HttpClient, private urlBase:ConexionService) {   }
 
   get(id:number):Observable<any>{
-    return this.http.get(`${this.urlBase.mainUrl}/EnviosReparacion/?idorden=${id}`);
+    return this.http.get(`${this.urlBase.mainUrl}EnviosReparacion/?idorden=${id}`);
   }
 
   getRetorno(id:number):Observable<any>{ 
-    return this.http.get(`${this.urlBase.mainUrl}/EnviosReparacion/?idorden=${id}&type=retorno`);
+    return this.http.get(`${this.urlBase.mainUrl}EnviosReparacion/?idorden=${id}&type=retorno`);
   }
 
   create(data:any):Observable<any>{
-    return this.http.post(`${this.urlBase.mainUrl}/EnviosReparacion/`,data);
+    return this.http.post(`${this.urlBase.mainUrl}EnviosReparacion/`,data);
   }
 
   createRetorno(data:any):Observable<any>{
-    return this.http.post(`${this.urlBase.mainUrl}/EnviosReparacion/?id=${data.objectId}`,data);
+    return this.http.post(`${this.urlBase.mainUrl}EnviosReparacion/?id=${data.objectId}`,data);
   }
 
 /*

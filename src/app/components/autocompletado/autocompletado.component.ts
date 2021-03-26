@@ -56,8 +56,7 @@ export class AutocompletadoComponent implements OnInit {
 
     //asignacion de id orden al servicio global
     this.seleccion.idordenParam(event.idCorte);
-  
-   // console.log("Select");
+ 
   }
 
 }

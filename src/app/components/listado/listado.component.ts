@@ -95,20 +95,19 @@ export class ListadoComponent implements OnInit {
 
     this.validarWash=this.evento.tipoTransaccion==="Reproceso"?true:false;
 
+    if (this.validarWash===false && this.selectedCode<1)
+    {
+        this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe Seleccionar linea'});
+        return;
+    } 
   /*  if (this.validarWash===true && this.evento.porder.washed==false)
     {
       this.messageService.add({severity:'error', summary:'Service Message', detail:'No puede enviar a Reproceso un corte no lavado'});
       return;
     } 
 */
-    if (this.validarWash===false && this.selectedCode<1)
-    {
-        this.messageService.add({severity:'error', summary:'Service Message', detail:'Debe Seleccionar linea'});
-        return;
-    } 
-    
-    /*** Fin de Validaciones de cliente ****/
 
+    /*** Fin de Validaciones de cliente ****/
     let data = {
       idOrder:this.evento.porder.objectId,
       talla:item.talla,
@@ -123,14 +122,11 @@ export class ListadoComponent implements OnInit {
     var resp:string='';
     switch (this.validarWash) {
       case true:   // ira al area de lavado Intex                
-          
-        //  await this.reproceso.create(data).subscribe(response => { console.log(response); resp=response },error=>{console.log(error); resp=error});          
+                     
           this.reproceso.create(data).subscribe(response => {
             if (response==="Ok"){
-              this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'});
-          
-              this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);
-        
+              this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'});         
+              this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);       
             }
             else
               this.messageService.add({severity:'error', summary:'Service Message', detail:'Ha ocurrido un Error'});
@@ -139,14 +135,10 @@ export class ListadoComponent implements OnInit {
         break;
       case false:  // ira a plantas de Confeccion
           data.idLinea=this.evento.id;
-
-          //await this.reparacion.create(data).subscribe(response => { console.log(response); resp=response },error=>{console.log(error); resp=error});         
           this.reparacion.create(data).subscribe(response => {             
               if (response==="Ok"){ 
-                this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'});
-                 
-                this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);
-               
+                this.messageService.add({severity:'success', summary:'Service Message', detail:'Exito ingresado correctamente'}); 
+                this.cargagrid(this.evento.porder.washed,this.evento.porder.objectId);              
             }
               else
               this.messageService.add({severity:'error', summary:'Service Message', detail:'Ha ocurrido un Error'});
