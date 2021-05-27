@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  bandera=false;
+
+  constructor(public tokenStorage:StorageService){
+    this.bandera=this.tokenStorage.getToken()===null ? false:true;
+    console.log(this.tokenStorage.getToken());
+    console.log(this.bandera);
+  }
 
   ngOnInit(): void {
   }

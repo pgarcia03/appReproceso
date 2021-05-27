@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class ConexionService {
 
- // mainUrl:string ='http://192.168.14.8:9050/api/';
-  mainUrl:string ='http://localhost:56332/api/';
+  mainUrl:string ='http://192.168.14.8:9050/api/';
+ // mainUrl:string ='http://localhost:56332/api/';
   constructor(){ }
 
 }

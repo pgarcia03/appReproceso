@@ -1,13 +1,20 @@
 
-
-<app-menu></app-menu>
-
+<app-menu *ngIf="bandera===true;"></app-menu>
 
 <div class="container mt-3">
-  <router-outlet>
 
-  </router-outlet>
+  <ng-template #principal>     
+    <app-login></app-login>
+  </ng-template>
+  
 
-  <app-login></app-login>
+  <div *ngIf="bandera===true; else principal">
+    <router-outlet>
+
+    </router-outlet>
+   
+  </div>
+
   
 </div>
+

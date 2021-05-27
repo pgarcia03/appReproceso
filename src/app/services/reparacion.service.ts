@@ -28,12 +28,10 @@ export class ReparacionService {
 
 /*
   getTotal(corte:string):Observable<any>{
-
     return  this.http.get(`${this.urlBase.mainUrl}/EnviosReparacion/${corte}`);
   }
 
   getdesc(id:any,desc:any,corte:any):Observable<any>{
-    
     return this.http.get(`${this.urlBase.mainUrl}/EnviosReparacion/${id}&${desc}&${corte}`);
   }
 
